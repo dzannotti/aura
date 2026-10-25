@@ -9,7 +9,7 @@ It's a conversation, not an interview. The user leads the direction and owns the
 
 ## Scope first
 
-Before the first question, check the size of what you're grilling. If it can't be settled comfortably in one session, or you can already see several questions that talk can't answer (see **Fidelity**), say so and propose splitting it into smaller scopes. Grill one scope at a time.
+Before the first question, check the size of what you're grilling. If it can't be settled comfortably in one session, or you can already see several high-fidelity questions in it (see **Fidelity**), say so and propose splitting it into smaller scopes. Grill one scope at a time.
 
 ## Attention is the budget
 
@@ -24,10 +24,12 @@ The user's attention is highest at the start of a session and drains fast. Spend
 
 Questions come at different levels of fidelity (Ryan Singer, _Shape Up_).
 
-- **Low-fidelity questions are grillable**: talk settles them. Which route a page lives on, what a thing is called, which of two flows comes first.
-- **High-fidelity questions are ungrillable**: the answer depends on seeing or feeling the thing. How a UI feels in use, how a complex state machine behaves under awkward sequences, whether something is fast enough. Don't grill these. Park each one as **needs a prototype**, with the question stated precisely, and carry on with the grillable questions.
+- **Low-fidelity questions** are settled by talk. Which route a page lives on, what a thing is called, which of two flows comes first.
+- **High-fidelity questions** depend on seeing or feeling the thing. How a UI feels in use, how a complex state machine behaves under awkward sequences, whether something is fast enough. Talk alone rarely settles them.
 
-Several ungrillable questions in one session are a symptom, not a backlog: the scope is too big, the problem isn't shaped yet, or you're asking the user for facts you should find. Stop and name which one it is.
+Still ask a high-fidelity question, but say that it looks high-fidelity. If the user can't answer it with confidence, that is the signal they need to see it before deciding: recommend a `/prototype` session, reached with a `/handoff` out and a `/handoff` back into this session, and carry on with the other questions meanwhile.
+
+Several high-fidelity questions in one session are a symptom, not a backlog: the scope is too big, the problem isn't shaped yet, or you're asking the user for facts you should find. Stop and name which one it is.
 
 ## The frontier
 
@@ -66,10 +68,10 @@ You never answer your own questions, and you never stand in for the user's side 
 
 The session is done when all of these hold:
 
-- the frontier is empty: every branch of the design tree visited, every ungrillable question parked;
+- the frontier is empty: every branch of the design tree visited, and every high-fidelity question either answered or sent to a prototype;
 - you can predict the user's reaction to the next three questions you would ask;
 - nothing is silently assumed: every assumption you took has been shown to the user.
 
 If confidence isn't rising after three or four answers, you're asking the wrong questions: stop, say so, and step back to the scope.
 
-At the end, list every assumption and every parked question together, so the user can veto in one pass. Do not act on the shared understanding until the user confirms it. The decisions made in this session are its most valuable output: keep working in this session, or carry them into a durable artifact; never let them be thrown away.
+At the end, list every assumption and every question sent to a prototype together, so the user can veto in one pass. Do not act on the shared understanding until the user confirms it. The decisions made in this session are its most valuable output: keep working in this session, or carry them into a durable artifact; never let them be thrown away.

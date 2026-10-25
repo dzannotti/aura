@@ -7,7 +7,7 @@ Aura adapts ideas and text from these collections. Each entry names what was tak
 - `setup-aura`: process and issue-tracker and domain templates adapted from `setup-matt-pocock-skills`.
 - `ask-aura`: router shape adapted from `ask-matt`.
 - `grilling`: design tree, frontier, facts-are-the-agent's-job, and the fidelity and scope lessons from "9 Things People Get Wrong With My /grill-\* skills", adapted from `grilling`.
-- `grill-with-docs`: adapted from `grill-with-docs`.
+- `grill-with-docs` and `grill-me`: adapted from the skills of the same names.
 - `domain-modeling`: adapted from `domain-modeling`, with `GLOSSARY-FORMAT.md` and `ADR-FORMAT.md` taken near-verbatim.
 - `setup-aura/templates/coding-standards.md` §3, §9 and §10: the deep-module vocabulary, deepening and seam discipline from `codebase-design` and `improve-codebase-architecture`, test guidance from `tdd`, and the smell baseline from `code-review`.
 

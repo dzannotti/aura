@@ -15,6 +15,7 @@ A software factory made of agent skills. One principal engineer agrees the desti
 - Skills are language- and stack-agnostic. A skill never names a language, framework, formatter, linter or test runner; it points at the target repo's `docs/agents/checks.md` and `docs/coding-standards.md` instead.
 - Skills are harness-agnostic. Write for pi, Claude Code and Codex alike; when a step needs a harness feature, say what it achieves, not which tool name to call.
 - Every skill is described in `skills/ask-aura/SKILL.md`: what it does and when to reach for it. Add the entry in the same change that adds the skill.
+- Link skills to each other by name (`` `/name` ``), including skills that don't exist yet. Never drop a link because the target isn't built: list the target under **Planned** in `ask-aura` instead. When a planned skill gets built, `grep -rn '`/name`' skills/` finds every skill that depends on it. `bun check` fails on a link to a skill that is neither built nor planned.
 - When a skill is adapted from another collection, record the source in `CREDITS.md` in the same change.
 - Bump `version` in `package.json` and `.claude-plugin/plugin.json` together.
 

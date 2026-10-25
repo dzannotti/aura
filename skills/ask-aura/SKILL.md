@@ -10,7 +10,7 @@ You don't remember every skill, so ask.
 
 Before stating what a skill does or recommending a step be skipped, read that skill's SKILL.md: the summaries here are for orientation only.
 
-Aura grows one skill at a time. This page lists only the skills that exist. If the user asks for a step Aura has no skill for yet, say so plainly instead of improvising one.
+Aura grows one skill at a time. **Skills** lists what exists today. **Planned** lists skills that other skills already link to but that are not built yet. If the user needs a planned skill, say it is planned and what it will do; don't improvise it.
 
 ## Skills
 
@@ -20,11 +20,15 @@ Configure a repo for Aura. It records where issues live, which commands check th
 
 ### `/grill-with-docs`
 
-Sharpen a plan, design or idea by interview, in a repo. Runs `/grilling` and `/domain-modeling` together: one question at a time with a recommended answer, decisions the context already settles taken for you and listed as assumptions, high-fidelity questions parked as needing a prototype, and `GLOSSARY.md` and ADRs updated as terms and decisions land. Reach for it whenever you're about to change something and want to align first.
+Sharpen a plan, design or idea by interview, in a repo. Runs `/grilling` and `/domain-modeling` together: one question at a time with a recommended answer, decisions the context already settles taken for you and listed as assumptions, high-fidelity questions flagged as likely needing a `/prototype`, and `GLOSSARY.md` and ADRs updated as terms and decisions land. Reach for it whenever you're about to change something and want to align first.
+
+### `/grill-me`
+
+The same interview as `/grill-with-docs`, with no docs side effects: nothing is written to `GLOSSARY.md` or ADRs. Reach for it to stress-test a plan, a design or a piece of writing outside a repo, or when you don't want the session to touch the domain docs.
 
 ### `/grilling`
 
-The interview itself, with no docs side effects. Other skills run it internally; reach for it directly to stress-test thinking outside a repo, or when you want the interview without touching `GLOSSARY.md` or ADRs.
+The interview primitive that `/grill-me` and `/grill-with-docs` run, and that other skills run internally. You rarely need to call it directly.
 
 ### `/domain-modeling`
 
@@ -33,6 +37,16 @@ The discipline for the project's domain language: challenge a fuzzy or conflicti
 ### `/ask-aura`
 
 This page: which skill fits your situation, and what each one does.
+
+## Planned
+
+### `/prototype`
+
+Throwaway code that answers one high-fidelity question: how a UI should look and feel, or whether a state model behaves right. Grilling sends questions here when the user can't answer them without seeing the thing.
+
+### `/handoff`
+
+Write a portable handoff document so a fresh session can pick up one piece of the work, for example a prototype spun off from a grilling session, and hand what it learned back.
 
 ## Precondition
 
