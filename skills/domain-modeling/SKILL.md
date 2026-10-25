@@ -5,70 +5,28 @@ description: Build and sharpen a project's domain model. Use when discussing cod
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the _active_ discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely _reading_ `GLOSSARY.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Build and sharpen the domain model while you design: challenge terms, invent edge-case scenarios, and write terms and decisions down the moment they settle. Reading `GLOSSARY.md` for vocabulary is not this skill; changing the model is.
 
-## File structure
-
-Most repos have a single context:
-
-```
-/
-├── GLOSSARY.md
-├── docs/
-│   └── adr/
-│       ├── 0001-event-sourced-orders.md
-│       └── 0002-postgres-for-write-model.md
-└── src/
-```
-
-If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The map points to where each one lives:
-
-```
-/
-├── GLOSSARY-MAP.md
-├── docs/
-│   └── adr/                          ← system-wide decisions
-├── src/
-│   ├── ordering/
-│   │   ├── GLOSSARY.md
-│   │   └── docs/adr/                 ← context-specific decisions
-│   └── billing/
-│       ├── GLOSSARY.md
-│       └── docs/adr/
-```
-
-`/setup-aura` creates these files up front, so they never appear for the first time inside a feature change. Write into them only when you have something to write. If `GLOSSARY.md` or `docs/adr/` is missing, the repo hasn't been set up: tell the user to run `/setup-aura` instead of creating it here.
+The model lives in `GLOSSARY.md` (or one per context behind `GLOSSARY-MAP.md`) and `docs/adr/`. `/setup-aura` creates them, so they never first appear inside a feature change. Write into them only when you have something to write. If one is missing, tell the user to run `/setup-aura` rather than creating it.
 
 ## During the session
 
-### Challenge against the glossary
+- **Challenge against the glossary.** When a term conflicts with `GLOSSARY.md`, say so at once: "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
+- **Sharpen fuzzy language.** Propose one canonical term for a vague or overloaded one: "You're saying 'account': do you mean the Customer or the User?"
+- **Stress-test with scenarios.** Invent concrete edge cases that force precise boundaries between concepts.
+- **Cross-reference with code.** When the user states how something works, check the code and surface contradictions: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
+- **Update `GLOSSARY.md` inline**, as each term settles, in the format of [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md). It holds definitions only: no implementation detail, no spec, no scratch notes.
 
-When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
+## Offer ADRs sparingly
 
-### Sharpen fuzzy language
+Offer one only when all three hold:
 
-When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account': do you mean the Customer or the User? Those are different things."
+1. **Hard to reverse**: changing your mind later costs something real.
+2. **Surprising without context**: a future reader will wonder why.
+3. **A real trade-off**: there were genuine alternatives, and one won for specific reasons.
 
-### Discuss concrete scenarios
+Use the format in [ADR-FORMAT.md](ADR-FORMAT.md).
 
-When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.
+## Next step
 
-### Cross-reference with code
-
-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
-
-### Update GLOSSARY.md inline
-
-When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up: capture them as they happen. Use the format in [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md).
-
-`GLOSSARY.md` should be totally devoid of implementation details. Do not treat `GLOSSARY.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
-
-### Offer ADRs sparingly
-
-Only offer to create an ADR when all three are true:
-
-1. **Hard to reverse**: the cost of changing your mind later is meaningful
-2. **Surprising without context**: a future reader will wonder "why did they do it this way?"
-3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
-
-If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](ADR-FORMAT.md).
+When another skill loaded this one, hand back to it. Otherwise, if the words led to a design question, suggest `/grill-with-docs` on it in this session.

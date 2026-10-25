@@ -6,74 +6,39 @@ disable-model-invocation: true
 
 # Setup Aura
 
-Scaffold the per-repo configuration and docs the Aura skills assume:
+Write the per-repo configuration and docs the other Aura skills read. Explore, propose, confirm, then write. A re-run updates in place and never overwrites a user edit without showing the difference.
 
-- **Domain docs**: `GLOSSARY.md` and `docs/adr/`, plus the rules for reading them
-- **Standards**: `docs/coding-standards.md` and `docs/git-etiquette.md`
-- **Checks**: the repo's own fast and full check commands
-- **Issue tracker**: where issues live (GitHub by default; local markdown also works)
+## 1. Explore
 
-This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write. Running it again updates what exists in place; it never overwrites user edits without showing the difference first.
+- The git remote: GitHub or not, which repo.
+- `AGENTS.md` and `CLAUDE.md`: an existing `## Aura` block; whether `CLAUDE.md` imports `AGENTS.md`.
+- `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/adr/`, `docs/coding-standards.md`, `docs/git-etiquette.md`, `docs/agents/`, `.scratch/`, and whether `.gitignore` covers `.local/`.
+- Every command the repo already uses to check itself: manifest scripts, task runner files, and what CI runs.
+- Monorepo signals: a workspace declaration, or several packages with their own sources.
 
-## Process
+## 2. Propose, one section at a time
 
-### 1. Explore
+Lead each section with your recommendation. Skip a section that exploration already settled.
 
-Read whatever exists; don't assume:
+- **A. Issue tracker.** GitHub when the remote is GitHub. Otherwise offer GitHub, local markdown (`.scratch/`; safe for one agent on one branch only, since files drift across branches), or another tracker the user describes in a paragraph.
+- **B. Checks.** A **fast** command (format, lint, type check; seconds) and a **full** command (fast plus tests and every merge-blocking gate), taken from what the repo and its CI already run. A level with no command is recorded as `none`, and you tell the user that agents cannot prove their work at that level. Never invent a command.
+- **C. Domain layout.** Single-context unless monorepo signals exist; then offer one `GLOSSARY.md` per context behind a root `GLOSSARY-MAP.md`.
+- **D. Standards.** If either standards doc exists, list each rule that differs from the template and let the user decide keep, replace or merge, rule by rule.
 
-- `git remote -v` and `.git/config`: is this a GitHub repo? Which one?
-- `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Aura` section? Does `CLAUDE.md` import or point at `AGENTS.md`?
-- `GLOSSARY.md` and `GLOSSARY-MAP.md` at the root, `docs/adr/` and any `<context>/docs/adr/`
-- `docs/coding-standards.md`, `docs/git-etiquette.md`, `docs/agents/`
-- `.scratch/`: a sign that a local-markdown tracker is already in use
-- The commands the repo already uses to check itself: scripts in the package manifest, task runner files (`Makefile`, `justfile`, `Taskfile`), and every command the CI workflows run
-- Monorepo signals: a workspace declaration or several packages with their own sources. Their absence means single-context, which is almost every repo.
+Then show drafts of the `## Aura` block and the three `docs/agents/` files, and let the user edit them.
 
-### 2. Present findings and ask
+## 3. Write
 
-Summarise what's present and what's missing. Then take the sections in order: one section, one answer, then the next. Lead each section with the recommended answer so the user can accept it in a word. Skip a section entirely when exploration already settled it.
+- **`AGENTS.md`**: the `## Aura` block from [agents-block.md](templates/agents-block.md), created or updated in place. pi, Claude Code and Codex all read `AGENTS.md`. If `CLAUDE.md` exists without importing it, ask whether to add `@AGENTS.md`.
+- **`docs/agents/issue-tracker.md`** from [issue-tracker-github.md](templates/issue-tracker-github.md) or [issue-tracker-local.md](templates/issue-tracker-local.md), or from the user's description.
+- **`docs/agents/checks.md`** from [checks.md](templates/checks.md), with the confirmed commands.
+- **`docs/agents/domain.md`** from [domain.md](templates/domain.md).
+- **`docs/coding-standards.md`** and **`docs/git-etiquette.md`** from [coding-standards.md](templates/coding-standards.md) and [git-etiquette.md](templates/git-etiquette.md), unless kept in section D.
+- **`.gitignore`**: add `.local/`, the scratch space for Aura working files (grilling ledgers, review reports) that must never be committed.
+- **Only where missing**: `GLOSSARY.md` containing `# Glossary` (single-context), and `docs/adr/.gitkeep`.
 
-**Section A: Issue tracker.** If a `git remote` points at GitHub, propose GitHub. Otherwise offer:
+Tell the user what was written.
 
-- **GitHub**: issues live in the repo's GitHub Issues (uses the `gh` CLI)
-- **Local markdown**: issues live as files under `.scratch/<effort>/` (one agent on one branch only; files drift when several agents edit them on separate branches)
-- **Other** (Linear, Jira, …): ask the user to describe the workflow in one paragraph and record it as prose
+## Next step
 
-**Section B: Check commands.** Propose a **fast** command (format, lint, type check; seconds) and a **full** command (fast plus tests and every other merge-blocking gate), taken from what the repo and its CI already run. Prefer one command per level that CI also runs. If no check exists for a level, record `none` and tell the user plainly that agents will have no way to prove their work at that level. Never invent a command the repo can't run.
-
-**Section C: Domain docs layout.** Default to **single-context**: one `GLOSSARY.md` and `docs/adr/` at the root. Write it without asking. Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing at one `GLOSSARY.md` per context) only when exploration found monorepo signals.
-
-**Section D: Standards.** If `docs/coding-standards.md` or `docs/git-etiquette.md` already exists, show how it differs from the Aura template and ask whether to keep it, replace it, or merge. Never merge silently: list each conflicting rule and let the user decide it.
-
-### 3. Confirm and edit
-
-Show the user a draft of:
-
-- The `## Aura` block for `AGENTS.md`
-- `docs/agents/issue-tracker.md`, `docs/agents/checks.md` and `docs/agents/domain.md`
-
-Let them edit before writing.
-
-### 4. Write
-
-**Steering file.** Write the `## Aura` block (template: [agents-block.md](templates/agents-block.md)) into `AGENTS.md`, creating it if needed. pi, Claude Code and Codex all read `AGENTS.md`. If `CLAUDE.md` also exists and neither imports nor points at `AGENTS.md`, ask the user whether to add `@AGENTS.md` to it. If an `## Aura` block already exists, update it in place and leave the surrounding sections alone.
-
-**Config docs**, from the templates in this skill:
-
-- `docs/agents/issue-tracker.md` from [issue-tracker-github.md](templates/issue-tracker-github.md) or [issue-tracker-local.md](templates/issue-tracker-local.md); for "other", write it from the user's description
-- `docs/agents/checks.md` from [checks.md](templates/checks.md), with the confirmed commands filled in
-- `docs/agents/domain.md` from [domain.md](templates/domain.md)
-
-**Standards**, unless the user chose to keep their own in Section D:
-
-- `docs/coding-standards.md` from [coding-standards.md](templates/coding-standards.md)
-- `docs/git-etiquette.md` from [git-etiquette.md](templates/git-etiquette.md)
-
-**Empty domain docs**, only where missing. Never overwrite one that exists.
-
-- `GLOSSARY.md` containing only `# Glossary` (single-context only)
-- `docs/adr/.gitkeep`
-
-### 5. Done
-
-Tell the user what was written and which docs the other Aura skills will now read. They can edit `docs/agents/*.md` and the standards directly; re-running this skill is only needed to switch tracker or restart from the templates.
+Tell the user to commit the setup on its own (see `docs/git-etiquette.md`), then start a fresh session (`/new` in pi, `/clear` in Claude Code) and run `/grill-with-docs <the first thing they want to build>`, written as the exact command for their harness.

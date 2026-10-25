@@ -14,7 +14,7 @@ import { checkRepo } from "./check-skills";
 const roots: string[] = [];
 
 function skill(name: string, description = "Does a thing."): string {
-  return `---\nname: ${name}\ndescription: ${description}\n---\n\n# ${name}\n`;
+  return `---\nname: ${name}\ndescription: ${description}\n---\n\n# ${name}\n\n## Next step\n\nDone.\n`;
 }
 
 function makeRepo(files: Record<string, string>, version = "0.1.0"): string {
@@ -77,7 +77,7 @@ test("a frontmatter name that differs from the directory is reported", () => {
 test("a missing description and a broken link are both reported", () => {
   const root = makeRepo({
     "skills/ask-aura/SKILL.md": router,
-    "skills/demo/SKILL.md": `---\nname: demo\n---\n\nSee [gone](gone.md).\n`,
+    "skills/demo/SKILL.md": `---\nname: demo\n---\n\nSee [gone](gone.md).\n\n## Next step\n\nDone.\n`,
   });
   expect(checkRepo(root)).toEqual([
     "skills/demo: frontmatter needs a description",
@@ -154,4 +154,34 @@ test("a skill mentioned only in passing is not routed", () => {
     "skills/demo/SKILL.md": skill("demo"),
   });
   expect(checkRepo(root)).toEqual(["skills/ask-aura: does not describe /demo"]);
+});
+
+test("a skill without a next step is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `---\nname: demo\ndescription: Does a thing.\n---\n\n# demo\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    'skills/demo: SKILL.md needs a "## Next step" section',
+  ]);
+});
+
+test("a skill over the word limit is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\n${"word ".repeat(1200)}\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo: SKILL.md has 1214 words; the limit is 1200",
+  ]);
+});
+
+test("a link written with arguments is still checked", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\nRun \`/ghost <path>\` after \`/clear\`.\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo/SKILL.md: links /ghost, which is neither a skill nor planned in ask-aura",
+  ]);
 });

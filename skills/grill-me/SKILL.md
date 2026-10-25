@@ -3,75 +3,76 @@ name: grill-me
 description: Grill the user relentlessly, one question at a time, until you reach a shared understanding of a plan, decision, or idea. Use when the user wants to stress-test their thinking, uses any 'grill' trigger phrase, or another skill needs a grilling session.
 ---
 
-Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
-
-It's a conversation, not an interview. The user leads the direction and owns the scope; your job is to keep it on track and to make every question count.
+Interview the user until you reach a shared understanding. Map it as a **design tree**: every decision branches into the decisions that hang off it. The user owns the scope; you keep the session on it.
 
 ## Scope first
 
-Before the first question, check the size of what you're grilling. If it can't be settled comfortably in one session, or you can already see several high-fidelity questions in it (see **Fidelity**), say so and propose splitting it into smaller scopes. Grill one scope at a time.
+Before the first question, check the size. If it won't settle in one session, or it already holds several high-fidelity questions, propose splitting it and grill one part.
 
-## Attention is the budget
+## Spend the user's attention
 
-The user's attention is highest at the start of a session and drains fast. Spend it only on decisions that are genuinely theirs.
+Attention is highest at the start and drains fast.
 
-- **Finding facts is your job, never the user's.** When a question needs a fact from the environment (filesystem, tools, docs, the web), dispatch a subagent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the report.
-- **Don't ask what the context already decides.** When the answer follows from the code, the repo's docs and standards, or the user's earlier answers, take it and record it as an assumption. Every other decision, however small, is the user's: ask it.
-- **Ask the most valuable question first.** Of the open questions, ask the one whose answer reshapes the most of the tree or that you're least able to predict, while attention is fresh.
-- **Make later questions cheap.** As the session goes on, prefer questions the user can settle by confirming your default over questions that make them generate an answer.
+- **Facts are your job.** Look up anything the environment can answer, in a subagent so you don't block; only questions downstream of it wait.
+- **Don't ask what the context decides.** When the code, the repo's docs or the user's earlier answers settle a question, take the answer and record it as an assumption. Ask every other decision, however small.
+- **Ask the most valuable question first**: the one that reshapes most of the tree, or whose answer you can least predict.
+- **Make later questions cheap**: prefer confirming your default over asking the user to generate an answer.
 
 ## Fidelity
 
-Questions come at different levels of fidelity (Ryan Singer, _Shape Up_).
+A high-fidelity question depends on seeing or feeling the thing: how a UI feels, how a state machine behaves under awkward sequences, whether something is fast enough. Ask it, but say it looks high-fidelity. If the user can't answer with confidence, recommend `/prototype`, reached by a `/handoff` out and a `/handoff` back, and carry on with the rest.
 
-- **Low-fidelity questions** are settled by talk. Which route a page lives on, what a thing is called, which of two flows comes first.
-- **High-fidelity questions** depend on seeing or feeling the thing. How a UI feels in use, how a complex state machine behaves under awkward sequences, whether something is fast enough. Talk alone rarely settles them.
+Several high-fidelity questions in one session are a symptom: the scope is too big, the problem isn't shaped, or you're asking for facts you should find. Stop and name which.
 
-Still ask a high-fidelity question, but say that it looks high-fidelity. If the user can't answer it with confidence, that is the signal they need to see it before deciding: recommend a `/prototype` session, reached with a `/handoff` out and a `/handoff` back into this session, and carry on with the other questions meanwhile.
+## One question per message
 
-Several high-fidelity questions in one session are a symptom, not a backlog: the scope is too big, the problem isn't shaped yet, or you're asking the user for facts you should find. Stop and name which one it is.
-
-## The frontier
-
-The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask **one question per message**, the most valuable on the frontier. A question whose answer depends on another open question belongs later.
-
-Each answer reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier before the next question.
-
-Format each message like so:
+Ask only from the **frontier**: decisions whose prerequisites are settled. Recompute it after every answer.
 
 ```
-Understanding: <your current read in one line> (~<confidence>%, missing: <what's unresolved>)
+Understanding: <your read in one line> (~<confidence>%, missing: <what's unresolved>)
 
-❓ **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **<question title>**: <question body, with options when there are options>
 
 ➡️ <your recommended answer>
 
-Assumed: <decisions you took yourself since the last message, one line each with the reason; omit when none>
+Assumed: <decisions the context settled since the last message, one line each with its source; omit when none>
 ```
 
-Write `missing:` only when confidence is below about 70%. Word each question so "yes" accepts your recommended answer.
+Write `missing:` only below about 70%. Word each question so "yes" accepts your recommendation.
 
 ## Reading answers
 
-- "Yes" accepts the recommended answer to the current question, and nothing more.
-- When an answer is ambiguous, check it in one line instead of guessing.
-- "Whatever you think" is delegation, not a decision. Re-ask with two concrete options as a choice.
-- When an answer sounds like what a thoughtful answer _should_ be rather than what the user wants ("scalable", "clean", "the standard way", "best practice"), ask: _"If you didn't have to justify this to anyone, what would you actually want?"_
+- "Yes" accepts the current recommendation only.
+- An ambiguous answer gets a one-line check, not a guess.
+- "Whatever you think" is delegation: re-ask as a choice between two concrete options.
+- An answer that sounds like what one _should_ want ("scalable", "clean", "best practice") gets: _"If you didn't have to justify this to anyone, what would you actually want?"_
 
-The _decisions_ are the user's: put each to them and wait.
+Never answer your own questions or stand in for the user. When nobody is there to answer (an autonomous run), don't grill: stop and report the open questions as a blocker, each with your recommendation.
 
-## Never answer for the user
+## The ledger
 
-You never answer your own questions, and you never stand in for the user's side of the conversation. When nobody is there to answer (an autonomous or non-interactive run), don't grill: stop, and report the open questions as a blocker, each with your recommended answer, so the user can settle them in one pass later.
+Write the session to `.local/grill/<topic>.md` as it happens (outside a repo, the OS temp directory), so nothing depends on this context surviving. Create it before the first question; update it after every answer.
+
+- **Scope**: what is grilled, and what was split off.
+- **Decisions**: `D1`, `D2`… quoting the user's words. When the user changes their mind, replace the decision.
+- **Rejected**: options that lost, and why.
+- **Assumed**: what the context settled, with the source.
+- **Terms**, **Seams**: terms resolved, test seams agreed.
+- **Open**: everything unsettled, including questions sent to `/prototype`.
+- **Transcript**: this session's transcript path, if the harness keeps one.
+
+Only the user's assent or instruction settles a choice. Your recommendation, their thinking out loud, pushback and clarifying questions stay under **Open**.
 
 ## Done
 
-The session is done when all of these hold:
+- The frontier is empty: every branch visited, every high-fidelity question answered or sent to a prototype.
+- You can predict the user's reaction to your next three questions.
+- Every assumption has been shown to the user.
 
-- the frontier is empty: every branch of the design tree visited, and every high-fidelity question either answered or sent to a prototype;
-- you can predict the user's reaction to the next three questions you would ask;
-- nothing is silently assumed: every assumption you took has been shown to the user.
+If confidence isn't rising after three or four answers, stop and step back to the scope.
 
-If confidence isn't rising after three or four answers, you're asking the wrong questions: stop, say so, and step back to the scope.
+Close by listing every assumption and prototype question together for one-pass veto. Act on nothing until the user confirms the shared understanding.
 
-At the end, list every assumption and every question sent to a prototype together, so the user can veto in one pass. Do not act on the shared understanding until the user confirms it. The decisions made in this session are its most valuable output: keep working in this session, or carry them into a durable artifact; never let them be thrown away.
+## Next step
+
+When another skill loaded this one, hand back to it. Otherwise give the user the next command with the ledger path, usually a fresh session (`/new` in pi, `/clear` in Claude Code) then `/to-spec <ledger path>`, written as the exact command for their harness.

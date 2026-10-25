@@ -2,7 +2,10 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 
 const MAX_DESCRIPTION_LENGTH = 1024;
+const MAX_SKILL_WORDS = 1200;
+const NEXT_STEP_HEADING = /^## Next step$/m;
 const ROUTER_SKILL = "ask-aura";
+const HARNESS_COMMANDS = new Set(["new", "clear", "compact"]);
 
 type Frontmatter = { name?: unknown; description?: unknown };
 
@@ -37,7 +40,7 @@ function proseOf(markdownPath: string): string {
 }
 
 function skillReferences(markdown: string): string[] {
-  return [...markdown.matchAll(/`\/([a-z0-9-]+)`/g)].map(
+  return [...markdown.matchAll(/`\/([a-z0-9-]+)(?=[`\s])/g)].map(
     (match) => match[1] ?? "",
   );
 }
@@ -100,6 +103,16 @@ function checkSkill(skillsDir: string, name: string, root: string): string[] {
       `skills/${name}: description exceeds ${MAX_DESCRIPTION_LENGTH} characters`,
     );
   }
+  const markdown = readFileSync(skillFile, "utf8");
+  if (!NEXT_STEP_HEADING.test(markdown)) {
+    problems.push(`skills/${name}: SKILL.md needs a "## Next step" section`);
+  }
+  const words = markdown.split(/\s+/).filter(Boolean).length;
+  if (words > MAX_SKILL_WORDS) {
+    problems.push(
+      `skills/${name}: SKILL.md has ${words} words; the limit is ${MAX_SKILL_WORDS}`,
+    );
+  }
   return [...problems, ...brokenLinks(skillFile, root)];
 }
 
@@ -144,7 +157,7 @@ export function checkRepo(root: string): string[] {
       (name) =>
         `skills/${ROUTER_SKILL}: /${name} exists; move it from Planned to Skills`,
     );
-  const known = new Set([...names, ...planned]);
+  const known = new Set([...names, ...planned, ...HARNESS_COMMANDS]);
   const danglingReferences = paths
     .filter((path) => path.endsWith(".md"))
     .flatMap((path) =>
