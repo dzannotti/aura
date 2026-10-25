@@ -4,7 +4,6 @@ How skills consume this repo's domain documentation when exploring the codebase.
 
 ## Before exploring, read these
 
-- **`NORTH_STAR.md`** at the repo root: where the project is heading. Work that does not move toward it needs a reason.
 - **`GLOSSARY.md`** at the repo root, or **`GLOSSARY-MAP.md`** if it exists: it points at one `GLOSSARY.md` per context. Read each one relevant to the topic.
 - **`docs/adr/`**: read ADRs that touch the area you're about to work in. In multi-context repos, also check `<context>/docs/adr/` for context-scoped decisions.
 - **`docs/coding-standards.md`** before writing or reviewing code, and **`docs/git-etiquette.md`** before branching, committing or opening a pull request.
@@ -17,7 +16,6 @@ Single-context repo (most repos):
 
 ```
 /
-├── NORTH_STAR.md
 ├── GLOSSARY.md
 ├── docs/
 │   ├── adr/
@@ -32,7 +30,6 @@ Multi-context repo (presence of `GLOSSARY-MAP.md` at the root):
 
 ```
 /
-├── NORTH_STAR.md
 ├── GLOSSARY-MAP.md
 ├── docs/adr/                          ← system-wide decisions
 └── src/

@@ -14,7 +14,7 @@ import { checkRepo } from "./check-skills";
 const roots: string[] = [];
 
 function skill(name: string, description = "Does a thing."): string {
-  return `---\nname: ${name}\ndescription: ${description}\n---\n\n# ${name}\n`;
+  return `---\nname: ${name}\ndescription: ${description}\n---\n\n# ${name}\n\n## Next step\n\nDone.\n`;
 }
 
 function makeRepo(files: Record<string, string>, version = "0.1.0"): string {
@@ -39,7 +39,13 @@ afterEach(() => {
   }
 });
 
-const router = `${skill("ask-aura")}\n\`/ask-aura\` \`/demo\`\n`;
+function routerFor(built: string[], planned: string[] = []): string {
+  const headings = (names: string[]) =>
+    names.map((name) => `### \`/${name}\`\n\nDoes ${name}.\n`).join("\n");
+  return `${skill("ask-aura")}\n## Skills\n\n${headings(built)}\n## Planned\n\n${headings(planned)}`;
+}
+
+const router = routerFor(["ask-aura", "demo"]);
 
 test("a well-formed repo has no problems", () => {
   const root = makeRepo({
@@ -52,7 +58,7 @@ test("a well-formed repo has no problems", () => {
 
 test("a skill the router does not describe is reported", () => {
   const root = makeRepo({
-    "skills/ask-aura/SKILL.md": `${skill("ask-aura")}\n\`/ask-aura\`\n`,
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura"]),
     "skills/demo/SKILL.md": skill("demo"),
   });
   expect(checkRepo(root)).toEqual(["skills/ask-aura: does not describe /demo"]);
@@ -71,12 +77,20 @@ test("a frontmatter name that differs from the directory is reported", () => {
 test("a missing description and a broken link are both reported", () => {
   const root = makeRepo({
     "skills/ask-aura/SKILL.md": router,
-    "skills/demo/SKILL.md": `---\nname: demo\n---\n\nSee [gone](gone.md).\n`,
+    "skills/demo/SKILL.md": `---\nname: demo\n---\n\nSee [gone](gone.md).\n\n## Next step\n\nDone.\n`,
   });
   expect(checkRepo(root)).toEqual([
     "skills/demo: frontmatter needs a description",
     "skills/demo/SKILL.md: broken link gone.md",
   ]);
+});
+
+test("links inside fenced code blocks are examples, not links", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\n\`\`\`md\n- [Ordering](./src/ordering/GLOSSARY.md)\n\`\`\`\n`,
+  });
+  expect(checkRepo(root)).toEqual([]);
 });
 
 test("a symlink inside skills is reported", () => {
@@ -95,7 +109,7 @@ test("a symlink inside skills is reported", () => {
 
 test("a plugin version that drifts from package.json is reported", () => {
   const root = makeRepo({
-    "skills/ask-aura/SKILL.md": `${skill("ask-aura")}\n\`/ask-aura\`\n`,
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura"]),
   });
   writeFileSync(
     join(root, ".claude-plugin", "plugin.json"),
@@ -103,5 +117,71 @@ test("a plugin version that drifts from package.json is reported", () => {
   );
   expect(checkRepo(root)).toEqual([
     "version drift: package.json 0.1.0 vs .claude-plugin/plugin.json 9.9.9",
+  ]);
+});
+
+test("a link to a planned skill is allowed", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura", "demo"], ["later"]),
+    "skills/demo/SKILL.md": `${skill("demo")}\nHand off to \`/later\`.\n`,
+  });
+  expect(checkRepo(root)).toEqual([]);
+});
+
+test("a link to a skill that is neither built nor planned is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\nHand off to \`/ghost\`.\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo/SKILL.md: links /ghost, which is neither a skill nor planned in ask-aura",
+  ]);
+});
+
+test("a built skill still listed as planned is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura", "demo"], ["demo"]),
+    "skills/demo/SKILL.md": skill("demo"),
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/ask-aura: /demo exists; move it from Planned to Skills",
+  ]);
+});
+
+test("a skill mentioned only in passing is not routed", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": `${routerFor(["ask-aura"])}\nSee \`/demo\`.\n`,
+    "skills/demo/SKILL.md": skill("demo"),
+  });
+  expect(checkRepo(root)).toEqual(["skills/ask-aura: does not describe /demo"]);
+});
+
+test("a skill without a next step is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `---\nname: demo\ndescription: Does a thing.\n---\n\n# demo\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    'skills/demo: SKILL.md needs a "## Next step" section',
+  ]);
+});
+
+test("a skill over the word limit is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\n${"word ".repeat(1200)}\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo: SKILL.md has 1214 words; the limit is 1200",
+  ]);
+});
+
+test("a link written with arguments is still checked", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\nRun \`/ghost <path>\` after \`/clear\`.\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo/SKILL.md: links /ghost, which is neither a skill nor planned in ask-aura",
   ]);
 });

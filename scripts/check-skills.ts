@@ -2,7 +2,10 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 
 const MAX_DESCRIPTION_LENGTH = 1024;
+const MAX_SKILL_WORDS = 1200;
+const NEXT_STEP_HEADING = /^## Next step$/m;
 const ROUTER_SKILL = "ask-aura";
+const HARNESS_COMMANDS = new Set(["new", "clear", "compact"]);
 
 type Frontmatter = { name?: unknown; description?: unknown };
 
@@ -29,8 +32,41 @@ function parseFrontmatter(markdown: string): Frontmatter | undefined {
   return parsed;
 }
 
+function proseOf(markdownPath: string): string {
+  return readFileSync(markdownPath, "utf8").replaceAll(
+    /^(```|~~~)[\s\S]*?^\1/gm,
+    "",
+  );
+}
+
+function skillReferences(markdown: string): string[] {
+  return [...markdown.matchAll(/`\/([a-z0-9-]+)(?=[`\s])/g)].map(
+    (match) => match[1] ?? "",
+  );
+}
+
+function headingReferences(section: string): string[] {
+  return [...section.matchAll(/^### `\/([a-z0-9-]+)`/gm)].map(
+    (match) => match[1] ?? "",
+  );
+}
+
+function routerSections(router: string): { built: string; planned: string } {
+  const plannedStart = router.indexOf("\n## Planned");
+  if (plannedStart === -1) {
+    return { built: router, planned: "" };
+  }
+  const afterPlanned = router.slice(plannedStart + 1);
+  const nextSection = afterPlanned.indexOf("\n## ", 1);
+  return {
+    built: router.slice(0, plannedStart),
+    planned:
+      nextSection === -1 ? afterPlanned : afterPlanned.slice(0, nextSection),
+  };
+}
+
 function brokenLinks(markdownPath: string, root: string): string[] {
-  const markdown = readFileSync(markdownPath, "utf8");
+  const markdown = proseOf(markdownPath);
   const targets = [...markdown.matchAll(/\]\(([^)\s]+)\)/g)].map(
     (match) => match[1] ?? "",
   );
@@ -67,6 +103,16 @@ function checkSkill(skillsDir: string, name: string, root: string): string[] {
       `skills/${name}: description exceeds ${MAX_DESCRIPTION_LENGTH} characters`,
     );
   }
+  const markdown = readFileSync(skillFile, "utf8");
+  if (!NEXT_STEP_HEADING.test(markdown)) {
+    problems.push(`skills/${name}: SKILL.md needs a "## Next step" section`);
+  }
+  const words = markdown.split(/\s+/).filter(Boolean).length;
+  if (words > MAX_SKILL_WORDS) {
+    problems.push(
+      `skills/${name}: SKILL.md has ${words} words; the limit is ${MAX_SKILL_WORDS}`,
+    );
+  }
   return [...problems, ...brokenLinks(skillFile, root)];
 }
 
@@ -99,9 +145,29 @@ export function checkRepo(root: string): string[] {
 
   const routerFile = join(skillsDir, ROUTER_SKILL, "SKILL.md");
   const router = existsSync(routerFile) ? readFileSync(routerFile, "utf8") : "";
+  const sections = routerSections(router);
+  const routed = new Set(headingReferences(sections.built));
+  const planned = new Set(headingReferences(sections.planned));
   const unrouted = names
-    .filter((name) => !router.includes(`\`/${name}\``))
+    .filter((name) => !routed.has(name))
     .map((name) => `skills/${ROUTER_SKILL}: does not describe /${name}`);
+  const builtButPlanned = names
+    .filter((name) => planned.has(name))
+    .map(
+      (name) =>
+        `skills/${ROUTER_SKILL}: /${name} exists; move it from Planned to Skills`,
+    );
+  const known = new Set([...names, ...planned, ...HARNESS_COMMANDS]);
+  const danglingReferences = paths
+    .filter((path) => path.endsWith(".md"))
+    .flatMap((path) =>
+      [...new Set(skillReferences(proseOf(path)))]
+        .filter((name) => !known.has(name))
+        .map(
+          (name) =>
+            `${path.slice(root.length + 1)}: links /${name}, which is neither a skill nor planned in ${ROUTER_SKILL}`,
+        ),
+    );
 
   const packageVersion = versionOf(join(root, "package.json"));
   const pluginVersion = versionOf(join(root, ".claude-plugin", "plugin.json"));
@@ -117,6 +183,8 @@ export function checkRepo(root: string): string[] {
     ...skillProblems,
     ...supportLinks,
     ...unrouted,
+    ...builtButPlanned,
+    ...danglingReferences,
     ...versionDrift,
   ];
 }
