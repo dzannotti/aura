@@ -32,6 +32,10 @@ The discipline for the project's domain language: challenge a fuzzy or conflicti
 
 Turn a grilling ledger into a spec on the issue tracker, in a fresh session: numbered user stories, implementation and testing decisions with the agreed test seams, and out of scope. Three fresh-context agents review the draft first: `spec-fidelity` (does it say what was decided?), `spec-builder-check` (could someone build it without guessing?) and `spec-critic` (should it be built this way? advisory). Then the user gives one explicit approval.
 
+### `/to-tickets`
+
+Cut a spec into tracer-bullet vertical slices on the issue tracker: prefactoring first, then the thinnest end-to-end path, then the riskiest slice. Each ticket carries acceptance criteria, the stories it covers (`covers: US-n`) and its blocking edges, and fits one fresh session. It asks you only when the breakdown hinges on a decision the spec didn't make.
+
 ### `/technical-writing`
 
 The drafting standard for every document Aura writes for a person or an agent: specs, tickets, ADRs, pull request bodies, docs. Pick the mode, write to the reader, one statement at a time, nothing open to two readings. Writing skills load it while drafting.
@@ -46,9 +50,13 @@ This page: which skill fits your situation, and what each one does.
 
 ## Planned
 
-### `/to-tickets`
+### `/implement-spec`
 
-Cut a spec into vertical-slice tickets on the issue tracker, each with acceptance criteria, the stories it covers (`covers: US-n`) and its blocking edges.
+Build a whole spec from its tickets: work the ready frontier of the ticket graph with builder agents in parallel worktrees, resumable from the tracker and pushed branches on any machine.
+
+### `/implement`
+
+Build one ticket: test-first at the agreed seams, the repo's checks, push often, stop at built.
 
 ### `/prototype`
 

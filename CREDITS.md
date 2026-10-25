@@ -9,6 +9,7 @@ Aura adapts ideas and text from these collections. Each entry names what was tak
 - `grill-me`: design tree, frontier, facts-are-the-agent's-job, and the fidelity and scope lessons from "9 Things People Get Wrong With My /grill-\* skills", adapted from `grilling` and `grill-me`.
 - `grill-with-docs`: adapted from `grill-with-docs`.
 - `to-spec`: process and spec template adapted from `to-spec`.
+- `to-tickets`: adapted from `to-tickets`, with BMAD's ordering rules (the riskiest slice right after the tracer bullet; split, never shrink).
 - `domain-modeling`: adapted from `domain-modeling`, with `GLOSSARY-FORMAT.md` and `ADR-FORMAT.md` taken near-verbatim.
 - `setup-aura/templates/coding-standards.md` §3, §9 and §10: the deep-module vocabulary, deepening and seam discipline from `codebase-design` and `improve-codebase-architecture`, test guidance from `tdd`, and the smell baseline from `code-review`.
 
