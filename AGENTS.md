@@ -9,6 +9,7 @@ A software factory made of agent skills. One principal engineer agrees the desti
 - `.claude-plugin/`: Claude Code plugin and marketplace manifests. Claude Code discovers `skills/` and `agents/` by convention.
 - `package.json`: the pi package manifest (`pi.skills`) and this repo's own scripts.
 - `scripts/`: tooling for developing Aura itself, not shipped to target repos.
+- `docs/research/`: dated research notes behind Aura's design choices. Read the relevant one before changing a skill it covers.
 
 ## Rules for skills
 
