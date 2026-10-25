@@ -49,7 +49,13 @@ When the user uses a term that conflicts with the existing language in `GLOSSARY
 
 ### Challenge against the north star
 
-When a proposal pulls away from a destination statement in `NORTH_STAR.md`, or quietly contradicts one of its non-goals, call it out immediately. "This pulls away from 'a user can X offline'. Intended?" Stay silent when `NORTH_STAR.md` is empty.
+`NORTH_STAR.md` states where the project is heading: its destination statements and its non-goals. `/north-star` owns that file; this skill holds every proposal up against it.
+
+- **Show the alignment.** For each significant proposal, say which destination statements it moves toward and which it pulls against or ignores. "This serves 'a group can see last month's winners'; it does nothing for 'works offline'."
+- **Challenge the operator.** When the user asks for something that goes against a destination statement or contradicts a non-goal, say so before going along with it, and ask whether the request or the north star should change. "This contradicts the non-goal 'no accounts'. Drop the request, or revise the north star with `/north-star`?"
+- Don't edit `NORTH_STAR.md` here. When the answer is "revise the north star", that is a `/north-star` session.
+
+Stay silent when `NORTH_STAR.md` is empty.
 
 ### Sharpen fuzzy language
 

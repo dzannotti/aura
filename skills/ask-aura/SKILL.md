@@ -28,13 +28,17 @@ The interview itself, with no docs side effects. One question at a time with a r
 
 ### `/domain-modeling`
 
-The discipline for the project's domain language: challenge a fuzzy or conflicting term, check proposals against `NORTH_STAR.md`, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
+The discipline for the project's domain language: challenge a fuzzy or conflicting term, show how each proposal aligns with `NORTH_STAR.md` and challenge requests that go against it, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
 
 ### `/ask-aura`
 
 This page: which skill fits your situation, and what each one does.
 
 ## Planned
+
+### `/north-star`
+
+Create and maintain `NORTH_STAR.md`: grill the user into a short brief, a set of destination statements that work can be checked against, and explicit non-goals, and revise it when the project learns something that moves the destination. Every other skill reads it; `/domain-modeling` challenges proposals against it.
 
 ### `/prototype`
 
