@@ -3,6 +3,7 @@ import { dirname, join, resolve } from "node:path";
 
 const MAX_DESCRIPTION_LENGTH = 1024;
 const MAX_SKILL_WORDS = 1200;
+const MAX_AGENT_WORDS = 600;
 const NEXT_STEP_HEADING = /^## Next step$/m;
 const ROUTER_SKILL = "ask-aura";
 const HARNESS_COMMANDS = new Set(["new", "clear", "compact"]);
@@ -25,7 +26,12 @@ function parseFrontmatter(markdown: string): Frontmatter | undefined {
   if (!match?.[1]) {
     return undefined;
   }
-  const parsed: unknown = Bun.YAML.parse(match[1]);
+  let parsed: unknown;
+  try {
+    parsed = Bun.YAML.parse(match[1]);
+  } catch {
+    return undefined;
+  }
   if (typeof parsed !== "object" || parsed === null) {
     return undefined;
   }
@@ -89,7 +95,7 @@ function checkSkill(skillsDir: string, name: string, root: string): string[] {
   }
   const frontmatter = parseFrontmatter(readFileSync(skillFile, "utf8"));
   if (!frontmatter) {
-    return [`skills/${name}: SKILL.md has no frontmatter`];
+    return [`skills/${name}: SKILL.md has no valid frontmatter`];
   }
   const problems: string[] = [];
   if (frontmatter.name !== name) {
@@ -114,6 +120,32 @@ function checkSkill(skillsDir: string, name: string, root: string): string[] {
     );
   }
   return [...problems, ...brokenLinks(skillFile, root)];
+}
+
+function checkAgent(agentsDir: string, entry: string): string[] {
+  const name = entry.slice(0, -".md".length);
+  const markdown = readFileSync(join(agentsDir, entry), "utf8");
+  const frontmatter = parseFrontmatter(markdown);
+  if (!frontmatter) {
+    return [`agents/${entry}: no valid frontmatter`];
+  }
+  const problems: string[] = [];
+  if (frontmatter.name !== name) {
+    problems.push(`agents/${entry}: frontmatter name must be "${name}"`);
+  }
+  if (
+    typeof frontmatter.description !== "string" ||
+    frontmatter.description.trim() === ""
+  ) {
+    problems.push(`agents/${entry}: frontmatter needs a description`);
+  }
+  const words = markdown.split(/\s+/).filter(Boolean).length;
+  if (words > MAX_AGENT_WORDS) {
+    problems.push(
+      `agents/${entry}: ${words} words; the limit is ${MAX_AGENT_WORDS}`,
+    );
+  }
+  return problems;
 }
 
 function versionOf(path: string): unknown {
@@ -169,6 +201,13 @@ export function checkRepo(root: string): string[] {
         ),
     );
 
+  const agentsDir = join(root, "agents");
+  const agentProblems = existsSync(agentsDir)
+    ? readdirSync(agentsDir)
+        .filter((entry) => entry.endsWith(".md"))
+        .flatMap((entry) => checkAgent(agentsDir, entry))
+    : [];
+
   const packageVersion = versionOf(join(root, "package.json"));
   const pluginVersion = versionOf(join(root, ".claude-plugin", "plugin.json"));
   const versionDrift =
@@ -182,6 +221,7 @@ export function checkRepo(root: string): string[] {
     ...symlinks,
     ...skillProblems,
     ...supportLinks,
+    ...agentProblems,
     ...unrouted,
     ...builtButPlanned,
     ...danglingReferences,

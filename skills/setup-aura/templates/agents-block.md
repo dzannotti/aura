@@ -14,4 +14,4 @@ Code follows `docs/coding-standards.md`. Branches, commits and pull requests fol
 
 ### Issue tracker
 
-[one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
+[one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`. Labels and their meaning: `docs/agents/triage-labels.md`.

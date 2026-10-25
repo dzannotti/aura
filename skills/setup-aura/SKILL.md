@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Setup Aura
 
-Write the per-repo configuration and docs the other Aura skills read. Explore, propose, confirm, then write. A re-run updates in place and never overwrites a user edit without showing the difference.
+Write the per-repo configuration, labels and docs the other Aura skills read. Explore, propose, confirm, then write. A re-run updates in place and never overwrites a user edit without showing the difference.
 
 ## 1. Explore
 
@@ -23,9 +23,10 @@ Lead each section with your recommendation. Skip a section that exploration alre
 - **A. Issue tracker.** GitHub when the remote is GitHub. Otherwise offer GitHub, local markdown (`.scratch/`; safe for one agent on one branch only, since files drift across branches), or another tracker the user describes in a paragraph.
 - **B. Checks.** A **fast** command (format, lint, type check; seconds) and a **full** command (fast plus tests and every merge-blocking gate), taken from what the repo and its CI already run. A level with no command is recorded as `none`, and you tell the user that agents cannot prove their work at that level. Never invent a command.
 - **C. Domain layout.** Single-context unless monorepo signals exist; then offer one `GLOSSARY.md` per context behind a root `GLOSSARY-MAP.md`.
-- **D. Standards.** If either standards doc exists, list each rule that differs from the template and let the user decide keep, replace or merge, rule by rule.
+- **D. Labels.** Propose the default `aura:` labels from [triage-labels.md](templates/triage-labels.md). If the tracker already uses its own triage labels, map each role to the existing label instead of creating a duplicate.
+- **E. Standards.** If either standards doc exists, list each rule that differs from the template and let the user decide keep, replace or merge, rule by rule.
 
-Then show drafts of the `## Aura` block and the three `docs/agents/` files, and let the user edit them.
+Then show drafts of the `## Aura` block and the four `docs/agents/` files, and let the user edit them.
 
 ## 3. Write
 
@@ -33,7 +34,8 @@ Then show drafts of the `## Aura` block and the three `docs/agents/` files, and 
 - **`docs/agents/issue-tracker.md`** from [issue-tracker-github.md](templates/issue-tracker-github.md) or [issue-tracker-local.md](templates/issue-tracker-local.md), or from the user's description.
 - **`docs/agents/checks.md`** from [checks.md](templates/checks.md), with the confirmed commands.
 - **`docs/agents/domain.md`** from [domain.md](templates/domain.md).
-- **`docs/coding-standards.md`** and **`docs/git-etiquette.md`** from [coding-standards.md](templates/coding-standards.md) and [git-etiquette.md](templates/git-etiquette.md), unless kept in section D.
+- **`docs/agents/triage-labels.md`** from [triage-labels.md](templates/triage-labels.md), with the confirmed labels. On GitHub, create each label with `gh label create <label> --force`, which is safe to re-run.
+- **`docs/coding-standards.md`** and **`docs/git-etiquette.md`** from [coding-standards.md](templates/coding-standards.md) and [git-etiquette.md](templates/git-etiquette.md), unless kept in section E.
 - **`.gitignore`**: add `.local/`, the scratch space for Aura working files (grilling ledgers, review reports) that must never be committed.
 - **Only where missing**: `GLOSSARY.md` containing `# Glossary` (single-context), and `docs/adr/.gitkeep`.
 
