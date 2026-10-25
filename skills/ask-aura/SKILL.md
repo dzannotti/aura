@@ -28,6 +28,10 @@ The interview itself, with no docs side effects. One question at a time with a r
 
 The discipline for the project's domain language: challenge a fuzzy or conflicting term, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
 
+### `/to-spec`
+
+Turn a grilling ledger into a spec on the issue tracker, in a fresh session: numbered user stories, implementation and testing decisions with the agreed test seams, and out of scope. Three fresh-context agents review the draft first: `spec-fidelity` (does it say what was decided?), `spec-builder-check` (could someone build it without guessing?) and `spec-critic` (should it be built this way? advisory). Then the user gives one explicit approval.
+
 ### `/technical-writing`
 
 The drafting standard for every document Aura writes for a person or an agent: specs, tickets, ADRs, pull request bodies, docs. Pick the mode, write to the reader, one statement at a time, nothing open to two readings. Writing skills load it while drafting.
@@ -42,9 +46,9 @@ This page: which skill fits your situation, and what each one does.
 
 ## Planned
 
-### `/to-spec`
+### `/to-tickets`
 
-Turn a grilling ledger into a spec on the issue tracker: numbered user stories, implementation and testing decisions with the agreed test seams, and out of scope. Three fresh-context review agents check it before the user gives one explicit approval.
+Cut a spec into vertical-slice tickets on the issue tracker, each with acceptance criteria, the stories it covers (`covers: US-n`) and its blocking edges.
 
 ### `/prototype`
 
