@@ -12,6 +12,9 @@ A software factory made of agent skills. One principal engineer agrees the desti
 
 ## Rules for skills
 
+- Write for the agent that will run the skill. State what changes its behaviour or removes a guess; cut what it already does by default. Say each rule once, in the one place that owns it. `bun check` caps a `SKILL.md` at 1,200 words; detail it rarely needs goes in a linked file.
+- Protect the orchestrator's context. Pass subagents file paths, never pasted content or the author's account of the work; have them write long output to `.local/` and return a short verdict.
+- Every skill ends with `## Next step`: the exact next command, and whether to continue the session or start a fresh one.
 - Skills are language- and stack-agnostic. A skill never names a language, framework, formatter, linter or test runner; it points at the target repo's `docs/agents/checks.md` and `docs/coding-standards.md` instead.
 - Skills are harness-agnostic. Write for pi, Claude Code and Codex alike; when a step needs a harness feature, say what it achieves, not which tool name to call.
 - Every skill is described in `skills/ask-aura/SKILL.md`: what it does and when to reach for it. Add the entry in the same change that adds the skill.
