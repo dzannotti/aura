@@ -14,6 +14,7 @@ These count as guesses:
 - A user story you could not write an acceptance criterion for.
 - A quality word with no measure: fast, scalable, secure, robust, intuitive, simple.
 - A placeholder: TODO, TBD, `???`, `[TK]`.
+- A technology choice the build needs (language, runtime, storage, framework) that neither the spec nor the repository makes.
 - A test seam that names no module or interface you can find or would create.
 - Two parts of the spec that cannot both be true.
 
