@@ -62,7 +62,7 @@ Spawn `spec-fidelity` (ledger, transcript from the ledger's **Transcript** line,
 - **Minor**: you can decide it without changing what gets built. Decide it, fix the draft, and add it to `.local/spec/<slug>-calls.md`, one line per call.
 - **The user's**: only the user can answer it, and the answer changes what gets built.
 
-Re-run both with their previous review, at most three rounds. Count only blocking findings: a fidelity finding the calls file explains is not blocking. Stop a reviewer early when two rounds leave the same findings open.
+Re-run both with their previous review, at most three rounds. Count only blocking findings: a finding the calls file explains, or one waiting in the user's pile, is not blocking. Stop a reviewer early when two rounds leave the same findings open.
 
 Then run `spec-critic` once on the final draft (output `.local/spec/<slug>-critic.md`). Its verdict is advisory. Last, run the `unslop` agent once on the draft.
 
