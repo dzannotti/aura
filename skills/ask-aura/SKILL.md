@@ -14,7 +14,7 @@ Aura grows one skill at a time. **Skills** lists what exists today. **Planned** 
 
 ### `/setup-aura`
 
-Configure a repo for Aura. It records where issues live, which commands check the code (fast and full), and how the domain docs are laid out, and it writes `docs/coding-standards.md`, `docs/git-etiquette.md` and empty `GLOSSARY.md` and `docs/adr/`. Run it once per repo before any other Aura skill: every other skill reads what it writes. Run it again to change the configuration.
+Configure a repo for Aura. It records where issues live and which `aura:` triage labels mark their state, which commands check the code (fast and full), and how the domain docs are laid out, and it writes `docs/coding-standards.md`, `docs/git-etiquette.md` and empty `GLOSSARY.md` and `docs/adr/`. Run it once per repo before any other Aura skill: every other skill reads what it writes. Run it again to change the configuration.
 
 ### `/grill-with-docs`
 
