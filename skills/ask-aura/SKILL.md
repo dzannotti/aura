@@ -20,15 +20,11 @@ Configure a repo for Aura. It records where issues live, which commands check th
 
 ### `/grill-with-docs`
 
-Sharpen a plan, design or idea by interview, in a repo. Runs `/grilling` and `/domain-modeling` together: one question at a time with a recommended answer, decisions the context already settles taken for you and listed as assumptions, high-fidelity questions flagged as likely needing a `/prototype`, and `GLOSSARY.md` and ADRs updated as terms and decisions land. Reach for it whenever you're about to change something and want to align first.
+Sharpen a plan, design or idea by interview, in a repo. Runs `/grill-me` and `/domain-modeling` together, so `GLOSSARY.md` and ADRs are updated as terms and decisions land. Reach for it whenever you're about to change something in a repo and want to align first.
 
 ### `/grill-me`
 
-The same interview as `/grill-with-docs`, with no docs side effects: nothing is written to `GLOSSARY.md` or ADRs. Reach for it to stress-test a plan, a design or a piece of writing outside a repo, or when you don't want the session to touch the domain docs.
-
-### `/grilling`
-
-The interview primitive that `/grill-me` and `/grill-with-docs` run, and that other skills run internally. You rarely need to call it directly.
+The interview itself, with no docs side effects. One question at a time with a recommended answer; decisions the context already settles are taken for you and listed as assumptions; high-fidelity questions are flagged as likely needing a `/prototype`. Reach for it to stress-test a plan, a design or a piece of writing outside a repo. Other skills run it internally when they need a grilling session.
 
 ### `/domain-modeling`
 
