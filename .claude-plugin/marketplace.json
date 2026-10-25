@@ -1,0 +1,15 @@
+{
+  "name": "aura",
+  "owner": {
+    "name": "Daniele Zannotti"
+  },
+  "description": "Aura, installable as a Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "aura",
+      "source": "./",
+      "description": "Aura: a software factory of agent skills.",
+      "category": "engineering"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "aura",
+  "version": "0.1.0",
+  "description": "Aura: a software factory of agent skills. North star, nested wayfinding, specs, tickets, verified autonomous implementation.",
+  "author": {
+    "name": "Daniele Zannotti"
+  },
+  "license": "MIT",
+  "keywords": ["engineering", "skills", "software-factory"]
+}
