@@ -30,7 +30,10 @@ function parseFrontmatter(markdown: string): Frontmatter | undefined {
 }
 
 function brokenLinks(markdownPath: string, root: string): string[] {
-  const markdown = readFileSync(markdownPath, "utf8");
+  const markdown = readFileSync(markdownPath, "utf8").replaceAll(
+    /^(```|~~~)[\s\S]*?^\1/gm,
+    "",
+  );
   const targets = [...markdown.matchAll(/\]\(([^)\s]+)\)/g)].map(
     (match) => match[1] ?? "",
   );

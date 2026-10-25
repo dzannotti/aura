@@ -79,6 +79,14 @@ test("a missing description and a broken link are both reported", () => {
   ]);
 });
 
+test("links inside fenced code blocks are examples, not links", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md": `${skill("demo")}\n\`\`\`md\n- [Ordering](./src/ordering/GLOSSARY.md)\n\`\`\`\n`,
+  });
+  expect(checkRepo(root)).toEqual([]);
+});
+
 test("a symlink inside skills is reported", () => {
   const root = makeRepo({
     "skills/ask-aura/SKILL.md": router,
