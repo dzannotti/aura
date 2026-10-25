@@ -11,7 +11,12 @@
   "pi": {
     "skills": [
       "./skills"
-    ]
+    ],
+    "subagents": {
+      "agents": [
+        "./agents"
+      ]
+    }
   },
   "scripts": {
     "check": "bun scripts/check-skills.ts && bun check --no-script && bun fmt --no-script --check && bun test"

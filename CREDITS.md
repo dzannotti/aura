@@ -27,3 +27,6 @@ Aura adapts ideas and text from these collections. Each entry names what was tak
 ## Lauren Tan (poteto) — [cursor/plugins pstack](https://github.com/cursor/plugins/tree/main/pstack)
 
 - `setup-aura/templates/coding-standards.md` §1: the outright ban on code comments.
+- `unslop`: pstack `unslop`, verbatim apart from the description and the next step.
+- `technical-writing`: pstack `technical-writing`, verbatim apart from the description, skill links, the next step, the mode guide and worked example moved to linked files, and one Cursor-specific line (tabs in code snippets) removed.
+- `agents/unslop.md`: written for Aura to run `unslop` in a fresh context.

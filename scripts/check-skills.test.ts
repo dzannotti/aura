@@ -185,3 +185,35 @@ test("a link written with arguments is still checked", () => {
     "skills/demo/SKILL.md: links /ghost, which is neither a skill nor planned in ask-aura",
   ]);
 });
+
+test("an agent whose name differs from its file is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura"]),
+    "agents/reviewer.md":
+      "---\nname: critic\ndescription: Reviews.\n---\n\nReview it.\n",
+  });
+  expect(checkRepo(root)).toEqual([
+    'agents/reviewer.md: frontmatter name must be "reviewer"',
+  ]);
+});
+
+test("an agent over the word limit is reported", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": routerFor(["ask-aura"]),
+    "agents/reviewer.md": `---\nname: reviewer\ndescription: Reviews.\n---\n\n${"word ".repeat(600)}\n`,
+  });
+  expect(checkRepo(root)).toEqual([
+    "agents/reviewer.md: 606 words; the limit is 600",
+  ]);
+});
+
+test("frontmatter that is not valid YAML is reported, not a crash", () => {
+  const root = makeRepo({
+    "skills/ask-aura/SKILL.md": router,
+    "skills/demo/SKILL.md":
+      "---\nname: demo\ndescription: Use it: on things: here\n---\n\n## Next step\n\nDone.\n",
+  });
+  expect(checkRepo(root)).toEqual([
+    "skills/demo: SKILL.md has no valid frontmatter",
+  ]);
+});

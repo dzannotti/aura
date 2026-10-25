@@ -28,6 +28,14 @@ The interview itself, with no docs side effects. One question at a time with a r
 
 The discipline for the project's domain language: challenge a fuzzy or conflicting term, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
 
+### `/technical-writing`
+
+The drafting standard for every document Aura writes for a person or an agent: specs, tickets, ADRs, pull request bodies, docs. Pick the mode, write to the reader, one statement at a time, nothing open to two readings. Writing skills load it while drafting.
+
+### `/unslop`
+
+The catalog of AI writing patterns, with stable rule numbers, and how to fix each. Run on a finished draft. The `unslop` agent applies it to one file in a fresh context and returns a short report.
+
 ### `/ask-aura`
 
 This page: which skill fits your situation, and what each one does.
