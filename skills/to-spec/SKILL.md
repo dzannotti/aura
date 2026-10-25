@@ -21,7 +21,7 @@ If the ledger has **Open** items, they are undecided. Settle them with the user 
 Load `/technical-writing` and follow it. Write the draft to `.local/spec/<slug>.md`:
 
 ```markdown
-## Problem Statement
+## Problem statement
 
 The problem the user faces, from the user's perspective.
 
@@ -29,50 +29,46 @@ The problem the user faces, from the user's perspective.
 
 The solution, from the user's perspective.
 
-## User Stories
+## User stories
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+- **US-1**: As an <actor>, I want a <feature>, so that <benefit>.
 
-## Implementation Decisions
+## Implementation decisions
 
 The decisions that were made: modules built or changed, their interfaces, schema changes, API contracts, specific interactions.
 
-## Testing Decisions
+## Testing decisions
 
 What a good test is here (external behaviour only), the agreed test seams and what each one catches, and prior art in the codebase.
 
-## Out of Scope
+## Out of scope
 
 What this spec deliberately does not cover.
 
-## Further Notes
+## Further notes
 ```
 
-- Number the stories `US-1`, `US-2`… and keep the numbers stable. Tickets cite them later (`covers: US-3`). Cover the whole feature: the list is long.
+- Give the stories ids `US-1`, `US-2`… and keep them stable. Tickets cite them later (`covers: US-3`). Cover the whole feature: the list is long.
 - No file paths or code. They go stale fast. The exception is a prototype snippet that pins a decision more precisely than prose (a state machine, a schema, a type shape): inline only the decision-carrying part and say it came from a prototype.
 - Take the test seams from the ledger. If it has none, agree them with the user now: prefer existing seams and the highest seam possible.
 
 ## 3. Review in fresh contexts
 
-Spawn these three agents in parallel. Give each only the paths it needs, never a summary or your account of the work:
+Give each agent only the paths it needs, never a summary or your account of the work.
 
-- `spec-fidelity`: ledger, transcript (from the ledger's **Transcript** line), draft, output `.local/spec/<slug>-fidelity-r<N>.md`.
-- `spec-builder-check`: draft, output `.local/spec/<slug>-builder-r<N>.md`.
-- `spec-critic`: draft, output `.local/spec/<slug>-critic.md`. It runs once; its verdict is advisory.
-
-Sort every fidelity and builder finding into one pile:
+Spawn `spec-fidelity` (ledger, transcript from the ledger's **Transcript** line, draft, calls file, output `.local/spec/<slug>-fidelity-r<N>.md`) and `spec-builder-check` (draft, output `.local/spec/<slug>-builder-r<N>.md`) in parallel. Sort every finding into one pile:
 
 - **Answered already**: the ledger settles it. Fix the draft.
-- **Minor**: you can decide it without changing what gets built. Decide it, fix the draft, and list it as a call you made.
+- **Minor**: you can decide it without changing what gets built. Decide it, fix the draft, and add it to `.local/spec/<slug>-calls.md`, one line per call.
 - **The user's**: only the user can answer it, and the answer changes what gets built.
 
-Re-run `spec-fidelity` and `spec-builder-check` with their previous review, at most three rounds. Stop early when two rounds leave the same findings open.
+Re-run both with their previous review, at most three rounds. Count only blocking findings: a fidelity finding the calls file explains is not blocking. Stop a reviewer early when two rounds leave the same findings open.
 
-Then run the `unslop` agent once on the draft.
+Then run `spec-critic` once on the final draft (output `.local/spec/<slug>-critic.md`). Its verdict is advisory. Last, run the `unslop` agent once on the draft.
 
 ## 4. One approval
 
-Show the user the draft path, the calls you made, the questions only they can answer, and the critic's block under its own heading. Fold their answers in, and re-run step 3 on what changed.
+Show the user the draft path, the calls file, the questions only they can answer, and the critic's block under its own heading. Fold their answers in, and re-run step 3 on what changed.
 
 Publish only on an explicit yes. "Sounds good" or "sure" is not a yes: ask whether anything needs changing.
 
