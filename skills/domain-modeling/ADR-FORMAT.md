@@ -2,7 +2,7 @@
 
 ADRs live in `docs/adr/` and use sequential numbering: `0001-slug.md`, `0002-slug.md`, etc.
 
-Create the `docs/adr/` directory when the first ADR is needed, if it does not exist yet.
+`/setup-aura` creates `docs/adr/`. If it is missing, tell the user to run `/setup-aura` instead of creating it here.
 
 ## Template
 

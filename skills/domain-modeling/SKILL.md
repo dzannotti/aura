@@ -39,7 +39,7 @@ If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The m
 │       └── docs/adr/
 ```
 
-Write into these files only when you have something real to write. If a file or directory is missing, create it at that moment; if it exists but is empty, fill it at that moment. Never pad them ahead of time.
+`/setup-aura` creates these files up front, so they never appear for the first time inside a feature change. Write into them only when you have something to write. If `GLOSSARY.md` or `docs/adr/` is missing, the repo hasn't been set up: tell the user to run `/setup-aura` instead of creating it here.
 
 ## During the session
 

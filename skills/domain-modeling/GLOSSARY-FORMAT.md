@@ -55,6 +55,6 @@ The skill infers which structure applies:
 
 - If `GLOSSARY-MAP.md` exists, read it to find contexts
 - If only a root `GLOSSARY.md` exists, single context
-- If neither exists, or the root `GLOSSARY.md` is empty, write the first resolved term into a root `GLOSSARY.md`
+- If neither exists, the repo hasn't been set up: tell the user to run `/setup-aura`
 
 When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.
