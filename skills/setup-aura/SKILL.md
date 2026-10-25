@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Scaffold the per-repo configuration and docs the Aura skills assume:
 
-- **Domain docs**: `NORTH_STAR.md`, `GLOSSARY.md` and `docs/adr/`, plus the rules for reading them
+- **Domain docs**: `GLOSSARY.md` and `docs/adr/`, plus the rules for reading them
 - **Standards**: `docs/coding-standards.md` and `docs/git-etiquette.md`
 - **Checks**: the repo's own fast and full check commands
 - **Issue tracker**: where issues live (GitHub by default; local markdown also works)
@@ -23,7 +23,7 @@ Read whatever exists; don't assume:
 
 - `git remote -v` and `.git/config`: is this a GitHub repo? Which one?
 - `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Aura` section? Does `CLAUDE.md` import or point at `AGENTS.md`?
-- `NORTH_STAR.md`, `GLOSSARY.md`, `GLOSSARY-MAP.md` at the root, `docs/adr/` and any `<context>/docs/adr/`
+- `GLOSSARY.md` and `GLOSSARY-MAP.md` at the root, `docs/adr/` and any `<context>/docs/adr/`
 - `docs/coding-standards.md`, `docs/git-etiquette.md`, `docs/agents/`
 - `.scratch/`: a sign that a local-markdown tracker is already in use
 - The commands the repo already uses to check itself: scripts in the package manifest, task runner files (`Makefile`, `justfile`, `Taskfile`), and every command the CI workflows run
@@ -71,7 +71,6 @@ Let them edit before writing.
 
 **Empty domain docs**, only where missing. Never overwrite one that exists.
 
-- `NORTH_STAR.md` containing only `# North Star`
 - `GLOSSARY.md` containing only `# Glossary` (single-context only)
 - `docs/adr/.gitkeep`
 

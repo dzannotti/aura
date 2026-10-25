@@ -2,7 +2,7 @@
 
 ### Domain docs
 
-[one-line summary: single-context or multi-context]. Read `NORTH_STAR.md`, `GLOSSARY.md` and the relevant ADRs in `docs/adr/` before exploring. See `docs/agents/domain.md`.
+[one-line summary: single-context or multi-context]. Read `GLOSSARY.md` and the relevant ADRs in `docs/adr/` before exploring. See `docs/agents/domain.md`.
 
 ### Standards
 

@@ -16,7 +16,7 @@ Aura grows one skill at a time. **Skills** lists what exists today. **Planned** 
 
 ### `/setup-aura`
 
-Configure a repo for Aura. It records where issues live, which commands check the code (fast and full), and how the domain docs are laid out, and it writes `docs/coding-standards.md`, `docs/git-etiquette.md` and empty `NORTH_STAR.md`, `GLOSSARY.md` and `docs/adr/`. Run it once per repo before any other Aura skill, and again to change the configuration.
+Configure a repo for Aura. It records where issues live, which commands check the code (fast and full), and how the domain docs are laid out, and it writes `docs/coding-standards.md`, `docs/git-etiquette.md` and empty `GLOSSARY.md` and `docs/adr/`. Run it once per repo before any other Aura skill, and again to change the configuration.
 
 ### `/grill-with-docs`
 
@@ -28,17 +28,13 @@ The interview itself, with no docs side effects. One question at a time with a r
 
 ### `/domain-modeling`
 
-The discipline for the project's domain language: challenge a fuzzy or conflicting term, show how each proposal aligns with `NORTH_STAR.md` and challenge requests that go against it, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
+The discipline for the project's domain language: challenge a fuzzy or conflicting term, keep `GLOSSARY.md` a clean glossary, and record a hard-to-reverse decision as an ADR. `/grill-with-docs` drives it; reach for it directly when the words, not the process, are the problem.
 
 ### `/ask-aura`
 
 This page: which skill fits your situation, and what each one does.
 
 ## Planned
-
-### `/north-star`
-
-Create and maintain `NORTH_STAR.md`: grill the user into a short brief, a set of destination statements that work can be checked against, and explicit non-goals, and revise it when the project learns something that moves the destination. Every other skill reads it; `/domain-modeling` challenges proposals against it.
 
 ### `/prototype`
 

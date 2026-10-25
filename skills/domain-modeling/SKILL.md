@@ -13,7 +13,6 @@ Most repos have a single context:
 
 ```
 /
-├── NORTH_STAR.md
 ├── GLOSSARY.md
 ├── docs/
 │   └── adr/
@@ -26,7 +25,6 @@ If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The m
 
 ```
 /
-├── NORTH_STAR.md
 ├── GLOSSARY-MAP.md
 ├── docs/
 │   └── adr/                          ← system-wide decisions
@@ -46,16 +44,6 @@ If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The m
 ### Challenge against the glossary
 
 When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
-
-### Challenge against the north star
-
-`NORTH_STAR.md` states where the project is heading: its destination statements and its non-goals. `/north-star` owns that file; this skill holds every proposal up against it.
-
-- **Show the alignment.** For each significant proposal, say which destination statements it moves toward and which it pulls against or ignores. "This serves 'a group can see last month's winners'; it does nothing for 'works offline'."
-- **Challenge the operator.** When the user asks for something that goes against a destination statement or contradicts a non-goal, say so before going along with it, and ask whether the request or the north star should change. "This contradicts the non-goal 'no accounts'. Drop the request, or revise the north star with `/north-star`?"
-- Don't edit `NORTH_STAR.md` here. When the answer is "revise the north star", that is a `/north-star` session.
-
-Stay silent when `NORTH_STAR.md` is empty.
 
 ### Sharpen fuzzy language
 
