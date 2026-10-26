@@ -53,7 +53,7 @@ Only when CI is green and every review is handled:
 3. Post one comment with the rulings from `rulings.md` (`what — why — cost if wrong`) and the items in `notes.md`.
 4. Assign the user, and tell them in the session with the pull request link.
 
-Never merge. The ticket closes when the user merges.
+Never merge. The ticket closes when the user merges; on a tracker the code host can't close, the hand-off asks the user to close it.
 
 ## Fix loop
 

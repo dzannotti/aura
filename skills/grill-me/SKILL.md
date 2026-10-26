@@ -61,4 +61,4 @@ Close by listing every assumption and prototype question together for one-pass v
 
 ## Next step
 
-When another skill loaded this one, hand back to it. Otherwise stay in this session: the decisions live in it. If the work fits what is left of this session, build it here. If it needs several sessions, run `/to-spec` next, here.
+When another skill loaded this one, hand back to it. Otherwise stay in this session: the decisions live in it. If the work fits what is left of this session, build it here with `/tdd`. If it needs several sessions, run `/to-spec` next, here.

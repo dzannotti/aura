@@ -51,7 +51,7 @@ What this spec deliberately does not cover.
 ## Further notes
 ```
 
-- Give the stories ids `US-1`, `US-2`… and keep them stable. Tickets cite them later (`covers: US-3`). Cover the whole feature: the list is long.
+- Give the stories ids `US-1`, `US-2`… and keep them stable. Tickets cite them later (`Covers: US-3`). Cover the whole feature: the list is long.
 - No file paths or code. They go stale fast. The exception is a prototype snippet that pins a decision more precisely than prose (a state machine, a schema, a type shape): inline only the decision-carrying part and say it came from a prototype.
 - Take the test seams from the source. If none were agreed, agree them with the user now: prefer existing seams and the highest seam possible.
 

@@ -34,7 +34,7 @@ Turn the grilling session you just had (run it in that same session), or a finis
 
 ### `/to-tickets`
 
-Cut a spec into tracer-bullet vertical slices on the issue tracker: prefactoring first, then the thinnest end-to-end path, then the riskiest slice. Each ticket carries acceptance criteria, the stories it covers (`covers: US-n`) and its blocking edges, and fits one fresh session. It asks you only when the breakdown hinges on a decision the spec didn't make.
+Cut a spec into tracer-bullet vertical slices on the issue tracker: prefactoring first, then the thinnest end-to-end path, then the riskiest slice. Each ticket carries acceptance criteria, the stories it covers (`Covers: US-n`) and its blocking edges, and fits one fresh session. It asks you only when the breakdown hinges on a decision the spec didn't make.
 
 ### `/wayfinder`
 
