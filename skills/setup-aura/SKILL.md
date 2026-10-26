@@ -36,8 +36,8 @@ Then show drafts of the `## Aura` block and the four `docs/agents/` files, and l
 - **`docs/agents/domain.md`** from [domain.md](templates/domain.md).
 - **`docs/agents/triage-labels.md`** from [triage-labels.md](templates/triage-labels.md), with the confirmed labels. On GitHub, create each label with `gh label create <label> --force`, which is safe to re-run.
 - **`docs/coding-standards.md`** and **`docs/git-etiquette.md`** from [coding-standards.md](templates/coding-standards.md) and [git-etiquette.md](templates/git-etiquette.md), unless kept in section E.
-- **`.gitignore`**: add `.local/`, the scratch space for Aura working files (grilling ledgers, review reports) that must never be committed.
-- **Only where missing**: `GLOSSARY.md` containing `# Glossary` (single-context), and `docs/adr/.gitkeep`.
+- **`.gitignore`**: add `.local/`, the scratch space for Aura working files (spec drafts, review reports) that must never be committed.
+- **Only where missing**: `GLOSSARY.md` containing `# Glossary` (single-context), `docs/adr/.gitkeep`, and `docs/research/.gitkeep` for research notes.
 
 Tell the user what was written.
 

@@ -16,6 +16,17 @@ Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all o
 
 Infer the repo from `git remote -v`; `gh` does this automatically when run inside a clone.
 
+## Wayfinding operations
+
+Used by `/wayfinder`. The **map** is one issue with child issues as its tickets.
+
+- **Map**: an issue labelled `aura:map`. `gh issue create --label aura:map`.
+- **Child ticket**: a sub-issue of the map (see **Make an issue a sub-issue of a parent**), carrying one type label: `aura:research`, `aura:prototype`, `aura:grilling` or `aura:task`.
+- **Blocking**: native issue dependencies (see **Blocking** above).
+- **Frontier query**: the map's open sub-issues that carry a type label, have no open blocker (`issue_dependencies_summary.blocked_by` is 0), and have no assignee. First in map order wins.
+- **Claim**: `gh issue edit <n> --add-assignee @me`, the session's first write.
+- **Resolve**: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then add a pointer (gist and link) to the map's Decisions so far.
+
 ## When a skill says "publish to the issue tracker"
 
 Create a GitHub issue.

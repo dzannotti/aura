@@ -8,4 +8,4 @@ Load the `grill-me` and `domain-modeling` skills and follow both: run the grilli
 
 ## Next step
 
-Tell the user to start a fresh session (`/new` in pi, `/clear` in Claude Code) and run `/to-spec <ledger path>`, written out as the exact command for their harness. The ledger carries the session, so nothing is lost by starting fresh.
+Stay in this session: the next step needs this conversation as its source. If the work fits what is left of this session, build it here. If it needs several sessions, run `/to-spec` next, here. If the session is close to full, carry it to a fresh one with `/handoff` first.

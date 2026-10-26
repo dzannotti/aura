@@ -49,20 +49,6 @@ Write `missing:` only below about 70%. Word each question so "yes" accepts your 
 
 Never answer your own questions or stand in for the user. When nobody is there to answer (an autonomous run), don't grill: stop and report the open questions as a blocker, each with your recommendation.
 
-## The ledger
-
-Write the session to `.local/grill/<topic>.md` as it happens (outside a repo, the OS temp directory), so nothing depends on this context surviving. Create it before the first question; update it after every answer.
-
-- **Scope**: what is grilled, and what was split off.
-- **Decisions**: `D1`, `D2`… quoting the user's words. When the user changes their mind, replace the decision.
-- **Rejected**: options that lost, and why.
-- **Assumed**: what the context settled, with the source.
-- **Terms**, **Seams**: terms resolved, test seams agreed.
-- **Open**: everything unsettled, including questions sent to `/prototype`.
-- **Transcript**: this session's transcript path, if the harness keeps one.
-
-Only the user's assent or instruction settles a choice. Your recommendation, their thinking out loud, pushback and clarifying questions stay under **Open**.
-
 ## Done
 
 - The frontier is empty: every branch visited, every high-fidelity question answered or sent to a prototype.
@@ -75,4 +61,4 @@ Close by listing every assumption and prototype question together for one-pass v
 
 ## Next step
 
-When another skill loaded this one, hand back to it. Otherwise give the user the next command with the ledger path, usually a fresh session (`/new` in pi, `/clear` in Claude Code) then `/to-spec <ledger path>`, written as the exact command for their harness.
+When another skill loaded this one, hand back to it. Otherwise stay in this session: the decisions live in it. If the work fits what is left of this session, build it here. If it needs several sessions, run `/to-spec` next, here.

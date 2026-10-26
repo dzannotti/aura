@@ -13,6 +13,17 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 
 Local markdown suits a single agent working on one branch. When several agents edit these files on separate branches, they drift; use a real tracker for that.
 
+## Wayfinding operations
+
+Used by `/wayfinder`. The **map** is a file with one file per ticket.
+
+- **Map**: `.scratch/<effort>/map.md`.
+- **Child ticket**: `.scratch/<effort>/issues/<NN>-<slug>.md`, numbered from `01`. A `Type:` line records `research`, `prototype`, `grilling` or `task`; a `Status:` line records `claimed` or `resolved`.
+- **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is resolved.
+- **Frontier**: files with a `Type:` line that are open, unblocked and unclaimed; lowest number first.
+- **Claim**: set `Status: claimed` and save before any work.
+- **Resolve**: append the answer under `## Answer`, set `Status: resolved`, then add a pointer (gist and link) to the map's Decisions so far.
+
 ## When a skill says "publish to the issue tracker"
 
 Create a new file under `.scratch/<effort-slug>/` (creating the directory if needed).
