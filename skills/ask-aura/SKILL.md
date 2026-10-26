@@ -36,6 +36,10 @@ Turn the grilling session you just had (run it in that same session), or a finis
 
 Cut a spec into tracer-bullet vertical slices on the issue tracker: prefactoring first, then the thinnest end-to-end path, then the riskiest slice. Each ticket carries acceptance criteria, the stories it covers (`covers: US-n`) and its blocking edges, and fits one fresh session. It asks you only when the breakdown hinges on a decision the spec didn't make.
 
+### `/wayfinder`
+
+Plan work too big and foggy for one session as a map on the issue tracker: a checkable destination, decision tickets (research, prototype, grilling, task) resolved one per session, and fog that graduates into tickets as the way clears. When the way is clear, `/to-spec` turns the map into a spec published under it. Reach for it only for fog: if the way is clear and the work fits one session, grill it and build it.
+
 ### `/technical-writing`
 
 The drafting standard for every document Aura writes for a person or an agent: specs, tickets, ADRs, pull request bodies, docs. Pick the mode, write to the reader, one statement at a time, nothing open to two readings. Writing skills load it while drafting.
@@ -49,6 +53,10 @@ The catalog of AI writing patterns, with stable rule numbers, and how to fix eac
 This page: which skill fits your situation, and what each one does.
 
 ## Planned
+
+### `/research`
+
+Answer one question from primary sources (official docs, source code, specs) in a background agent, and write the cited findings to `docs/research/`.
 
 ### `/implement-spec`
 

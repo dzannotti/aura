@@ -19,4 +19,14 @@ Aura skills speak in canonical triage roles. This file maps each role to the lab
 | `bug`         | `aura:bug`         | Something is broken          |
 | `enhancement` | `aura:enhancement` | A new feature or improvement |
 
-On a local-markdown tracker, write the role name in the issue file's `Status:` line instead.
+## Wayfinding: used by `/wayfinder`
+
+| Label            | Meaning                                   |
+| ---------------- | ----------------------------------------- |
+| `aura:map`       | A wayfinder map                           |
+| `aura:research`  | A decision ticket answered by research    |
+| `aura:prototype` | A decision ticket answered by a prototype |
+| `aura:grilling`  | A decision ticket answered by a grilling  |
+| `aura:task`      | Manual work a decision waits on           |
+
+On a local-markdown tracker, write the role name in the issue file's `Status:` line, and the wayfinding type in its `Type:` line, instead.
