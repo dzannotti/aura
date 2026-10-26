@@ -22,7 +22,7 @@ Sharpen a plan, design or idea by interview, in a repo. Runs `/grill-me` and `/d
 
 ### `/grill-me`
 
-The interview itself, with no docs side effects. One question at a time with a recommended answer; decisions the context already settles are taken as assumptions; high-fidelity questions are flagged as likely needing a `/prototype`. It writes a ledger of the session to `.local/grill/`, which the next step reads. Reach for it to stress-test a plan, a design or a piece of writing outside a repo. Other skills run it internally when they need a grilling session.
+The interview itself, with no docs side effects. One question at a time with a recommended answer; decisions the context already settles are taken as assumptions; high-fidelity questions are flagged as likely needing a `/prototype`. Reach for it to stress-test a plan, a design or a piece of writing outside a repo. Other skills run it internally when they need a grilling session.
 
 ### `/domain-modeling`
 
@@ -30,7 +30,7 @@ The discipline for the project's domain language: challenge a fuzzy or conflicti
 
 ### `/to-spec`
 
-Turn a grilling ledger into a spec on the issue tracker, in a fresh session: numbered user stories, implementation and testing decisions with the agreed test seams, and out of scope. Three fresh-context agents review the draft first: `spec-fidelity` (does it say what was decided?), `spec-builder-check` (could someone build it without guessing?) and `spec-critic` (should it be built this way? advisory). Then the user gives one explicit approval.
+Turn the grilling session you just had (run it in that same session), or a finished wayfinder map, into a spec on the issue tracker: numbered user stories, implementation and testing decisions with the agreed test seams, and out of scope. Three fresh-context agents review the draft first: `spec-fidelity` (does it say what was decided?), `spec-builder-check` (could someone build it without guessing?) and `spec-critic` (should it be built this way? advisory). Then the user gives one explicit approval.
 
 ### `/to-tickets`
 
