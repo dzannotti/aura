@@ -40,6 +40,14 @@ Cut a spec into tracer-bullet vertical slices on the issue tracker: prefactoring
 
 Plan work too big and foggy for one session as a map on the issue tracker: a checkable destination, decision tickets (research, prototype, grilling, task) resolved one per session, and fog that graduates into tickets as the way clears. When the way is clear, `/to-spec` turns the map into a spec published under it. Reach for it only for fog: if the way is clear and the work fits one session, grill it and build it.
 
+### `/implement`
+
+Build one ticket and hand you a green pull request. Run it as the ticket's lead: an `implementer` agent builds it with `/tdd`; the `verifier` agent (does it meet the acceptance criteria and stay inside the ticket and spec?) and `/code-review` check it in parallel; fix rounds are bounded. Then it pushes, waits for CI and any review bots, and hands off: it comments on the risky lines and lists the rulings it made, then assigns you. It never merges.
+
+### `/tdd`
+
+The red → green loop: one test at an agreed seam, then only the code that passes it, one slice at a time. Refactoring waits for review. The `implementer` agent runs it; reach for it directly to build or fix something test-first by hand.
+
 ### `/technical-writing`
 
 The drafting standard for every document Aura writes for a person or an agent: specs, tickets, ADRs, pull request bodies, docs. Pick the mode, write to the reader, one statement at a time, nothing open to two readings. Writing skills load it while drafting.
@@ -60,11 +68,11 @@ Answer one question from primary sources (official docs, source code, specs) in 
 
 ### `/implement-spec`
 
-Build a whole spec from its tickets: work the ready frontier of the ticket graph with builder agents in parallel worktrees, resumable from the tracker and pushed branches on any machine.
+Build a whole spec from its tickets, in blocking order, in parallel where tickets don't conflict. It coordinates: for each ticket it starts the same agents `/implement` uses, and it resumes from the tracker and the pull requests on any machine. A spec with no tickets stops it: run `/to-tickets` first.
 
-### `/implement`
+### `/code-review`
 
-Build one ticket: test-first at the agreed seams, the repo's checks, push often, stop at built.
+Review a branch against the default branch in a fresh context, against `docs/coding-standards.md`, and write the findings to a file. `/implement` runs it before every push.
 
 ### `/prototype`
 

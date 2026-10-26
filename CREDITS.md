@@ -11,6 +11,8 @@ Aura adapts ideas and text from these collections. Each entry names what was tak
 - `to-spec`: process and spec template adapted from `to-spec`.
 - `wayfinder`: adapted from `wayfinder`, with a checkable destination (poteto's falsifiable definition of done, Addy Osmani's checkable `done_when`) and research written to `docs/research/`. The tracker templates' wayfinding operations are adapted from Matt's.
 - `to-tickets`: adapted from `to-tickets`, with BMAD's ordering rules (the riskiest slice right after the tracer bullet; split, never shrink).
+- `tdd`: the rules of the loop from `tdd`, with the test guidance itself in the coding standards §9.
+- `implement`: a ticket worked by fresh-context agents, after Sandcastle.
 - `domain-modeling`: adapted from `domain-modeling`, with `GLOSSARY-FORMAT.md` and `ADR-FORMAT.md` taken near-verbatim.
 - `setup-aura/templates/coding-standards.md` §3, §9 and §10: the deep-module vocabulary, deepening and seam discipline from `codebase-design` and `improve-codebase-architecture`, test guidance from `tdd`, and the smell baseline from `code-review`.
 
@@ -29,6 +31,11 @@ Aura adapts ideas and text from these collections. Each entry names what was tak
 - `agents/spec-builder-check.md`: obra/superpowers `brainstorming/builder-check-prompt.md`, with spec-kit `analyze`'s vagueness list.
 - `agents/spec-critic.md`: Addy Osmani's `factory-critic`.
 - `to-spec` review loop: the three-pile triage and scoped re-review from superpowers; the explicit-yes rule from Addy Osmani's `interview-me`.
+
+## Implementation sources
+
+- `implement`: rulings logged as `what — why — cost if wrong`, the bounded fix loop (same implementer, then a fresh one on a stronger model) and scoped re-review from obra/superpowers `subagent-driven-development`.
+- `agents/verifier.md`: evidence bound to the checked SHA from gstack `ship`; "trust no report of success" from superpowers `verification-before-completion`; stable finding ids and stop-on-repeat as in `agents/spec-fidelity.md`.
 
 ## Ryan Singer — _Shape Up_
 
