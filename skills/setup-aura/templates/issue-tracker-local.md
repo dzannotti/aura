@@ -7,7 +7,8 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 - One effort per directory: `.scratch/<effort-slug>/`
 - The spec is `.scratch/<effort-slug>/spec.md`
 - Issues are one file per ticket at `.scratch/<effort-slug>/issues/<NN>-<slug>.md`, numbered from `01`, never a single combined tickets file
-- State is recorded as a `Status:` line near the top of each issue file
+- State is recorded as a `Status:` line near the top of each issue file. A closed issue has `Status: closed`.
+- Assignment is an `Assignee:` line near the top, holding a name the user gives
 - Blocking is a `Blocked by: NN, NN` line near the top. An issue is unblocked when every issue it lists is closed.
 - Comments and conversation history append to the bottom of the file under a `## Comments` heading
 
